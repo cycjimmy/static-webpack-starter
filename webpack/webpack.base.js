@@ -58,90 +58,6 @@ module.exports = {
         loader: 'babel-loader',
       },
 
-      // Pictures
-      {
-        test: /\.(jpe?g|png|gif|svg)$/i,
-        exclude: [
-          path.resolve('node_modules'),
-          path.resolve('static', 'images', 'icons'),
-          path.resolve('static', 'images', 'logos'),
-        ],
-        include: [
-          path.resolve('app'),
-          path.resolve('static'),
-        ],
-        use: [
-          {
-            loader: 'url-loader',
-            options: {
-              limit: 4096,
-              name: 'images/[name].[hash:6].[ext]',
-            }
-          },
-          {
-            loader: 'image-webpack-loader',
-            options: {
-              query: {
-                mozjpeg: {
-                  progressive: true,
-                  quality: 65,
-                },
-                gifsicle: {
-                  interlaced: false,
-                },
-                optipng: {
-                  optimizationLevel: 6,
-                },
-                pngquant: {
-                  quality: '65-90',
-                  speed: 4,
-                },
-                svgo: {
-                  plugins: [
-                    {
-                      removeViewBox: false
-                    },
-                    {
-                      removeEmptyAttrs: false
-                    }
-                  ]
-                },
-              },
-            }
-          }
-        ],
-      },
-
-      // Svg icons
-      {
-        test: /\.svg$/,
-        exclude: /node_modules/,
-        include: path.resolve('static', 'images', 'icons'),
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name: 'images/icons/[name].[hash:6].[ext]',
-            }
-          }
-        ],
-      },
-
-      // Font
-      {
-        test: /\.(eot|ttf|woff|woff2)$/,
-        exclude: /node_modules/,
-        use: [
-          {
-            loader: 'url-loader',
-            options: {
-              limit: 8192,
-              name: 'fonts/[name].[hash:6].[ext]',
-            }
-          }
-        ],
-      },
-
       // Pug template
       {
         test: /\.pug$/,
@@ -151,6 +67,25 @@ module.exports = {
         ],
         exclude: /node_modules/,
         loader: 'pug-loader',
+      },
+
+      // ico
+      {
+        test: /\.ico$/i,
+        exclude: [
+          path.resolve('node_modules'),
+        ],
+        include: [
+          path.resolve('static'),
+        ],
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+            },
+          },
+        ],
       },
     ]
   },
