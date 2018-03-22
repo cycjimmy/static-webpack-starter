@@ -12,9 +12,7 @@ const
   , DefinePlugin = require('webpack/lib/DefinePlugin')
   , UglifyJsPlugin = require('uglifyjs-webpack-plugin')
   , CleanWebpackPlugin = require('clean-webpack-plugin')
-  , LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin')
   , ExtractTextPlugin = require('extract-text-webpack-plugin')
-  , WebpackChunkHash = require("webpack-chunk-hash")
 ;
 
 let
@@ -98,8 +96,8 @@ module.exports = webpackMerge(webpackBase, {
             loader: 'url-loader',
             options: {
               limit: 4096,
-              // name: 'images/[hash:12].[ext]',
-              name: 'images/[name].[ext]',
+              name: 'images/[hash:12].[ext]',
+              // name: 'images/[name].[ext]',
             }
           },
           imageWebpackLoaderConfig,
@@ -118,6 +116,7 @@ module.exports = webpackMerge(webpackBase, {
             loader: 'file-loader',
             options: {
               name: 'images/[hash:12].[ext]',
+              // name: 'images/[name].[ext]',
             }
           },
           imageWebpackLoaderConfig,
@@ -178,8 +177,7 @@ module.exports = webpackMerge(webpackBase, {
             }
           }
         ],
-      },
-
+      }
     ]
   },
 
@@ -188,9 +186,7 @@ module.exports = webpackMerge(webpackBase, {
     new HtmlWebpackPlugin({
       inject: true,
       template: path.resolve('./static', 'view', 'index.pug'),
-      //filename: '../index.html',
       favicon: path.resolve('./static', 'favicon.ico'),
-      // chunks: ['manifest', 'main', 'vendor'],
       minify: {
         removeComments: true,
         collapseWhitespace: true,
@@ -206,7 +202,6 @@ module.exports = webpackMerge(webpackBase, {
     }),
 
     new webpack.HashedModuleIdsPlugin(),
-    new WebpackChunkHash(),
 
     new CleanWebpackPlugin(['build'], {
       root: path.resolve('./'),
@@ -222,31 +217,32 @@ module.exports = webpackMerge(webpackBase, {
 
     // Uglify Js
     new UglifyJsPlugin({
-      beautify: false,
-      comments: false,
-      compress: {
-        screw_ie8: true,
+      uglifyOptions: {
+        ie8: false,
+        ecma: 5,
+        output: {
+          comments: false,
+          beautify: false
+        },
+        compress: {
+          warnings: false,
+          drop_debugger: true,
+          drop_console: true,
+          collapse_vars: true,
+          reduce_vars: true
+        },
         warnings: false,
-        drop_debugger: true,
-        drop_console: true,
-        collapse_vars: true,
-        reduce_vars: true,
-      },
-      mangle: {
-        screw_ie8: true
-      },
-      output: {
-        comments: false,
-        screw_ie8: true
-      },
-      sourceMap: true,
+        sourceMap: true
+      }
     }),
 
     new ExtractTextPlugin({
       filename: 'style/[name].[chunkhash:8].min.css',
-      disable: false,
+      ignoreOrder: true,
       allChunks: true,
     }),
+
+    new webpack.optimize.ModuleConcatenationPlugin(),
 
     new BrowserSyncPlugin(browserSyncConfig({
       server: {

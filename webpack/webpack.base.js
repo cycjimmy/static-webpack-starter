@@ -33,7 +33,11 @@ module.exports = {
     chunkFilename: DEVELOPMENT
       ? 'scripts/[name].chunk.[chunkhash:4].js'
       : 'scripts/[name].chunk.[chunkhash:8].min.js',
-    //publicPath: '/'
+    publicPath: './'
+  },
+
+  externals: {
+    // swiper: 'Swiper'
   },
 
   resolve: {
@@ -43,7 +47,7 @@ module.exports = {
       path.resolve('static'),
     ],
     'alias': {
-      // 'fastclick': path.resolve('node_modules', 'fastclick', 'lib', 'fastclick.js'),
+      // 'swiper': path.resolve('node_modules', 'swiper', 'dist', 'js', 'swiper.js'),
     },
     'extensions': ['.js']
   },
@@ -92,7 +96,7 @@ module.exports = {
 
   plugins: [
     new CommonsChunkPlugin({
-      names: ['main', 'vendor'],
+      names: ['main'],
       minChunks: Infinity,
     }),
 
