@@ -12,6 +12,7 @@
 ;
 
 module.exports = webpackMerge(webpackBase, {
+  mode: 'development',
   devtool: 'eval-source-map',
 
   output: {
