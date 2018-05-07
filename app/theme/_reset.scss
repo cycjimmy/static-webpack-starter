@@ -25,18 +25,6 @@ h6 {
   padding: 0;
 }
 
-html {
-  box-sizing: border-box;
-}
-
-* {
-  &,
-  &::before,
-  &::after {
-    box-sizing: inherit;
-  }
-}
-
 body {
   -webkit-user-select: none;
   -webkit-touch-callout: none;
