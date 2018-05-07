@@ -36,7 +36,7 @@ module.exports = {
   },
 
   externals: {
-    // swiper: 'Swiper'
+    // 'awesome-swiper': 'AwesomeSwiper'
   },
 
   resolve: {
@@ -101,8 +101,8 @@ module.exports = {
       cacheGroups: {
         default: false,
         vendors: false,
-        load: {
-          name: 'load',
+        main: {
+          name: 'main',
           chunks: 'initial',
           minSize: Infinity,
           minChunks: Infinity,
@@ -110,7 +110,7 @@ module.exports = {
       }
     },
     runtimeChunk: {
-      name: 'load'
+      name: 'main'
     }
   },
 

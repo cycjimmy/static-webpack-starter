@@ -70,6 +70,7 @@ module.exports = webpackMerge(webpackBase, {
         ],
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
+          publicPath: '../',  // fix images url bug
           use: [
             styleLoadersConfig.cssLoader,
             styleLoadersConfig.postLoader,
