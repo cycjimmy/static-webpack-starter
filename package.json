@@ -1,6 +1,6 @@
 {
   "name": "static-webpack-starter",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Static webpack starter for webpack, gulp, es6/7, sass, pug...",
   "main": "index.js",
   "scripts": {
@@ -49,7 +49,7 @@
     "cross-env": "^5.1.4",
     "css-loader": "^0.28.11",
     "del": "^3.0.0",
-    "extract-text-webpack-plugin": "4.0.0-beta.0",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "file-loader": "^1.1.11",
     "gh-pages": "^1.1.0",
     "gulp": "^3.9.1",
