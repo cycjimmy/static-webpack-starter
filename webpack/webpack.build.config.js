@@ -11,6 +11,7 @@ const
   , HtmlWebpackPlugin = require('html-webpack-plugin')
   , UglifyJsPlugin = require('uglifyjs-webpack-plugin')
   , CleanWebpackPlugin = require('clean-webpack-plugin')
+  , OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
   , ExtractTextPlugin = require('extract-text-webpack-plugin')
 ;
 
@@ -208,31 +209,21 @@ module.exports = webpackMerge(webpackBase, {
       dry: false,
     }),
 
-    // Uglify Js
-    new UglifyJsPlugin({
-      uglifyOptions: {
-        ie8: false,
-        ecma: 5,
-        output: {
-          comments: false,
-          beautify: false
-        },
-        compress: {
-          warnings: false,
-          drop_debugger: true,
-          drop_console: true,
-          collapse_vars: true,
-          reduce_vars: true
-        },
-        warnings: false,
-        sourceMap: true
-      }
-    }),
-
     new ExtractTextPlugin({
       filename: 'style/[name].[chunkhash:8].min.css',
       ignoreOrder: false,
       allChunks: false,
+    }),
+
+    new OptimizeCssAssetsPlugin({
+      assetNameRegExp: /\.min\.css$/g,
+      cssProcessor: require('cssnano'),
+      cssProcessorOptions: {
+        discardComments: {
+          removeAll: true
+        }
+      },
+      canPrint: true
     }),
 
     new webpack.optimize.ModuleConcatenationPlugin(),
@@ -251,4 +242,30 @@ module.exports = webpackMerge(webpackBase, {
       reload: false,
     }),
   ],
+
+  optimization: {
+    minimizer: [
+      // Uglify Js
+      new UglifyJsPlugin({
+        uglifyOptions: {
+          ie8: false,
+          safari10: true,
+          ecma: 5,
+          output: {
+            comments: false,
+            beautify: false
+          },
+          compress: {
+            warnings: false,
+            drop_debugger: true,
+            drop_console: true,
+            collapse_vars: true,
+            reduce_vars: true
+          },
+          warnings: false,
+          sourceMap: true
+        }
+      }),
+    ]
+  }
 });
