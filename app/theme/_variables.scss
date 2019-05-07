@@ -1,9 +1,9 @@
 /*---------------------------
  * font-size
  *---------------------------*/
-$fontS: 11px;
-$fontM: 12px;
-$fontL: 14px;
+$fontS: 14px;
+$fontM: 15.5px;
+$fontL: 17px;
 
 /*---------------------------
  * color
@@ -19,6 +19,12 @@ $bgc: #0a4f56;
 /*---------------------------
  * layout
  *---------------------------*/
+$designDrawingWidth: 750;
+
+/* media query */
+$break-small: 440px;
+$break-large: 960px;
+
 /* default space */
 $space: 20px;
 $iconMarginR: 5px;

@@ -8,7 +8,6 @@
   // Webpack Plugin
   , BrowserSyncPlugin = require('browser-sync-webpack-plugin')
   , HtmlWebpackPlugin = require('html-webpack-plugin')
-  , CleanWebpackPlugin = require('clean-webpack-plugin')
 ;
 
 module.exports = webpackMerge(webpackBase, {
