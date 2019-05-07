@@ -94,17 +94,11 @@ module.exports = webpackMerge(webpackBase, {
   },
 
   plugins: [
-    new CleanWebpackPlugin(['dist'], {
-      root: path.resolve('./'),
-      verbose: true,
-      dry: false,
-    }),
-
     new HtmlWebpackPlugin({
-      //inject: true,
+      // inject: true,
       template: path.resolve('static', 'view', 'index.pug'),
       favicon: path.resolve('static', 'favicon.ico'),
-      //filename: '../index.html',
+      // filename: '../index.html',
     }),
 
     new BrowserSyncPlugin(browserSyncConfig({
