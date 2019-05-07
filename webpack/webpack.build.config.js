@@ -2,7 +2,7 @@ const
   path = require('path')
   , webpack = require('webpack')
   , webpackMerge = require('webpack-merge')
-  , webpackBase = require("./webpack.base.js")
+  , webpackBase = require('./webpack.base.js')
   , browserSyncConfig = require('./browserSync.config')
   , styleLoadersConfig = require('./styleLoaders.config')()
 
@@ -10,9 +10,8 @@ const
   , BrowserSyncPlugin = require('browser-sync-webpack-plugin')
   , HtmlWebpackPlugin = require('html-webpack-plugin')
   , UglifyJsPlugin = require('uglifyjs-webpack-plugin')
-  , CleanWebpackPlugin = require('clean-webpack-plugin')
-  , OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
   , ExtractTextPlugin = require('extract-text-webpack-plugin')
+  , OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 ;
 
 let
@@ -21,7 +20,7 @@ let
     options: {
       mozjpeg: {
         progressive: true,
-        quality: 75,
+        quality: 70,
       },
       gifsicle: {
         interlaced: false,
@@ -46,7 +45,6 @@ let
     }
   }
 ;
-
 
 module.exports = webpackMerge(webpackBase, {
   mode: 'production',
@@ -177,10 +175,9 @@ module.exports = webpackMerge(webpackBase, {
             }
           }
         ],
-      }
+      },
     ]
   },
-
 
   plugins: [
     new HtmlWebpackPlugin({
@@ -203,12 +200,6 @@ module.exports = webpackMerge(webpackBase, {
 
     new webpack.HashedModuleIdsPlugin(),
 
-    new CleanWebpackPlugin(['build'], {
-      root: path.resolve('./'),
-      verbose: true,
-      dry: false,
-    }),
-
     new ExtractTextPlugin({
       filename: 'style/[name].[chunkhash:8].min.css',
       ignoreOrder: false,
@@ -218,11 +209,7 @@ module.exports = webpackMerge(webpackBase, {
     new OptimizeCssAssetsPlugin({
       assetNameRegExp: /\.min\.css$/g,
       cssProcessor: require('cssnano'),
-      cssProcessorOptions: {
-        discardComments: {
-          removeAll: true
-        }
-      },
+      cssProcessorOptions: {discardComments: {removeAll: true}},
       canPrint: true
     }),
 
@@ -256,7 +243,6 @@ module.exports = webpackMerge(webpackBase, {
             beautify: false
           },
           compress: {
-            warnings: false,
             drop_debugger: true,
             drop_console: true,
             collapse_vars: true,

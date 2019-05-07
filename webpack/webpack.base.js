@@ -1,13 +1,10 @@
-/**
- * Created by cyc on 2017/2/4.
- */
-
 const
   path = require('path')
   , webpack = require('webpack')
 
   // Webpack Plugin
   , DefinePlugin = require('webpack/lib/DefinePlugin')
+  , CleanWebpackPlugin = require('clean-webpack-plugin')
 ;
 
 const
@@ -18,10 +15,7 @@ const
 
 module.exports = {
   entry: {
-    // 'vendor': [
-    //   'fastclick',
-    // ],
-    "main": path.resolve('app', 'main.js'),
+    'main': path.resolve('app', 'main.js'),
   },
 
   output: {
@@ -32,7 +26,7 @@ module.exports = {
     chunkFilename: DEVELOPMENT
       ? 'scripts/[name].chunk.[chunkhash:4].js'
       : 'scripts/[name].chunk.[chunkhash:8].min.js',
-    publicPath: './'
+    publicPath: './',
   },
 
   externals: {
@@ -53,12 +47,19 @@ module.exports = {
 
   module: {
     rules: [
+      // Web worker
+      {
+        test: /\.worker\.js$/,
+        loader: 'worker-loader',
+        options: {
+          inline: true,
+        },
+      },
+
       // Scripts
       {
         test: /\.js$/,
         type: 'javascript/auto',
-        include: path.resolve('app'),
-        exclude: /node_modules/,
         loader: 'babel-loader',
       },
 
@@ -69,7 +70,9 @@ module.exports = {
           path.resolve('app'),
           path.resolve('static'),
         ],
-        exclude: /node_modules/,
+        exclude: [
+          path.resolve('node_modules'),
+        ],
         loader: 'pug-loader',
       },
 
@@ -120,6 +123,11 @@ module.exports = {
       PRODUCTION: JSON.stringify(PRODUCTION),
       PRODUCTION_TEST_SERVER: JSON.stringify(PRODUCTION_TEST_SERVER),
       TEST_SERVER_ADDRESS: '',
+    }),
+
+    new CleanWebpackPlugin({
+      verbose: true,
+      dry: false
     }),
   ],
 };

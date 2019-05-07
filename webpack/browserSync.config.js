@@ -1,11 +1,4 @@
-/**
- * Created by cyc on 2017/2/7.
- */
-
-const
-  getDataAjax = require('../mock/api/getData.ajax.js')
-  ;
-
+const getDataAjax = require('../mock/api/getData.ajax.js');
 
 module.exports = options => {
   return Object.assign({
@@ -13,7 +6,7 @@ module.exports = options => {
       // https: true,
     },
     ghostMode: false,
-    logLevel: "debug",
+    // logLevel: "debug",
     middleware: [
       {
         route: "/getData",
@@ -21,5 +14,4 @@ module.exports = options => {
       },
     ],
   }, options);
-
 };
