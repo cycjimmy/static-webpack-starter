@@ -35,12 +35,15 @@ let
       svgo: {
         plugins: [
           {
-            removeViewBox: false
+            removeViewBox: false,
           },
           {
-            removeEmptyAttrs: false
-          }
-        ]
+            removeEmptyAttrs: false,
+          },
+          {
+            moveGroupAttrsToElems: false,
+          },
+        ],
       },
     }
   }
@@ -59,12 +62,6 @@ module.exports = webpackMerge(webpackBase, {
       // Style
       {
         test: /\.scss$/,
-        exclude: [
-          path.resolve('node_modules'),
-        ],
-        include: [
-          path.resolve('app'),
-        ],
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           publicPath: '../',  // fix images url bug
@@ -224,7 +221,7 @@ module.exports = webpackMerge(webpackBase, {
       ui: {
         port: 4001,
       },
-      logLevel: "warn",
+      logLevel: 'warn',
     }), {
       reload: false,
     }),

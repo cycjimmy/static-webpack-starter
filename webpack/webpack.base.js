@@ -4,7 +4,7 @@ const
 
   // Webpack Plugin
   , DefinePlugin = require('webpack/lib/DefinePlugin')
-  , CleanWebpackPlugin = require('clean-webpack-plugin')
+  , {CleanWebpackPlugin} = require('clean-webpack-plugin')
 ;
 
 const
@@ -41,6 +41,7 @@ module.exports = {
     ],
     'alias': {
       // 'swiper': path.resolve('node_modules', 'swiper', 'dist', 'js', 'swiper.js'),
+      'swiper-animation': path.resolve('node_modules', 'swiper-animation', 'build', 'swiper-animation.js'),
     },
     'extensions': ['.js']
   },
