@@ -1,5 +1,5 @@
-import isString from 'awesome-js-funcs/judgeBasic/isString';
-import nodeListToArray from 'awesome-js-funcs/typeConversion/nodeListToArray';
+import isString from '@cycjimmy/awesome-js-funcs/judgeBasic/isString';
+import nodeListToArray from '@cycjimmy/awesome-js-funcs/typeConversion/nodeListToArray';
 
 export default class QueryAll {
   /**
@@ -97,4 +97,3 @@ export default class QueryAll {
     });
   };
 };
-

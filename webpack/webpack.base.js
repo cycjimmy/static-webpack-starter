@@ -1,6 +1,5 @@
 const
   path = require('path')
-  , webpack = require('webpack')
 
   // Webpack Plugin
   , DefinePlugin = require('webpack/lib/DefinePlugin')
@@ -15,7 +14,10 @@ const
 
 module.exports = {
   entry: {
-    'main': path.resolve('app', 'main.js'),
+    'load': path.resolve('app', 'load.js'),
+    'main': [
+      path.resolve('app', 'main.js'),
+    ],
   },
 
   output: {
@@ -39,10 +41,6 @@ module.exports = {
       path.resolve('node_modules'),
       path.resolve('static'),
     ],
-    'alias': {
-      // 'swiper': path.resolve('node_modules', 'swiper', 'dist', 'js', 'swiper.js'),
-      'swiper-animation': path.resolve('node_modules', 'swiper-animation', 'build', 'swiper-animation.js'),
-    },
     'extensions': ['.js']
   },
 
@@ -71,18 +69,12 @@ module.exports = {
           path.resolve('app'),
           path.resolve('static'),
         ],
-        exclude: [
-          path.resolve('node_modules'),
-        ],
         loader: 'pug-loader',
       },
 
       // ico
       {
         test: /\.ico$/i,
-        exclude: [
-          path.resolve('node_modules'),
-        ],
         include: [
           path.resolve('static'),
         ],

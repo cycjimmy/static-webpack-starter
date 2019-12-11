@@ -1,13 +1,12 @@
 [production staging]
-last 5 versions
 ie >= 8
 ie_mob >= 8
 ff >= 30
 chrome >= 40
-safari >= 7
+safari >= 8
 opera >= 23
-ios >= 7
-android >= 4.0
+ios >= 8
+android >= 4.4
 
 [development]
 last 2 versions
