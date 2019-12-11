@@ -8,7 +8,7 @@ module.exports = options => {
       loader: 'css-loader',
       options: {
         importLoaders: 2,
-      }
+      },
     },
     postLoader: {
       loader: 'postcss-loader',
@@ -21,8 +21,10 @@ module.exports = options => {
     sassLoader: {
       loader: 'sass-loader',
       options: {
-        outputStyle: 'expanded',
-      }
+        sassOptions: {
+          outputStyle: 'expanded',
+        },
+      },
     },
   }, options);
 };

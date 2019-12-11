@@ -1,17 +1,7 @@
-// global css
-import './theme/main.scss';
-
-// import webInitialize from './webInitialize.afunc';
-
-if (DEVELOPMENT) {
-  console.log('Development Mode');
-}
-if (PRODUCTION) {
-  console.log('Production Mode');
-}
+import webInitialize from './webInitialize.afunc';
 
 // web page init
-// document.addEventListener('DOMContentLoaded', () => {
-//   web init
-//   webInitialize();
-// }, false);
+document.addEventListener('DOMContentLoaded', () => {
+  // web init
+  webInitialize();
+}, false);

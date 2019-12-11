@@ -91,10 +91,8 @@ module.exports = webpackMerge(webpackBase, {
 
   plugins: [
     new HtmlWebpackPlugin({
-      // inject: true,
+      inject: false,
       template: path.resolve('static', 'view', 'index.pug'),
-      favicon: path.resolve('static', 'favicon.ico'),
-      // filename: '../index.html',
     }),
 
     new BrowserSyncPlugin(browserSyncConfig({
@@ -104,6 +102,5 @@ module.exports = webpackMerge(webpackBase, {
     }), {
       reload: true,
     }),
-
   ],
 });

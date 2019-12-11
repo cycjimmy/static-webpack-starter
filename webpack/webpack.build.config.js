@@ -9,45 +9,52 @@ const
   // Webpack Plugin
   , BrowserSyncPlugin = require('browser-sync-webpack-plugin')
   , HtmlWebpackPlugin = require('html-webpack-plugin')
-  , UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+  , TerserPlugin = require('terser-webpack-plugin')
   , ExtractTextPlugin = require('extract-text-webpack-plugin')
   , OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+  , OfflinePlugin = require('offline-plugin')
+
+  // configs
+  , terserConfig = require('@cycjimmy/config-lib/terserWebpackPlugin/2.x/production')
 ;
 
-let
-  imageWebpackLoaderConfig = {
-    loader: 'image-webpack-loader',
-    options: {
-      mozjpeg: {
-        progressive: true,
-        quality: 70,
-      },
-      gifsicle: {
-        interlaced: false,
-      },
-      optipng: {
-        optimizationLevel: 6,
-      },
-      pngquant: {
-        quality: '65-90',
-        speed: 4,
-      },
-      svgo: {
-        plugins: [
-          {
-            removeViewBox: false,
-          },
-          {
-            removeEmptyAttrs: false,
-          },
-          {
-            moveGroupAttrsToElems: false,
-          },
-        ],
-      },
-    }
+terserConfig.terserOptions.ie8 =  true;
+
+const imageWebpackLoaderConfig = {
+  loader: 'image-webpack-loader',
+  options: {
+    mozjpeg: {
+      progressive: true,
+      quality: 70,
+    },
+    gifsicle: {
+      interlaced: false,
+    },
+    optipng: {
+      optimizationLevel: 6,
+    },
+    pngquant: {
+      quality: [.65, .9],
+      speed: 4,
+    },
+    svgo: {
+      plugins: [
+        {
+          removeViewBox: false,
+        },
+        {
+          removeEmptyAttrs: false,
+        },
+        {
+          moveGroupAttrsToElems: false,
+        },
+      ],
+    },
+    // webp: {
+    //   quality: 75
+    // },
   }
-;
+};
 
 module.exports = webpackMerge(webpackBase, {
   mode: 'production',
@@ -77,7 +84,6 @@ module.exports = webpackMerge(webpackBase, {
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
         exclude: [
-          path.resolve('node_modules'),
           path.resolve('static', 'images', 'icons'),
           path.resolve('static', 'images', 'logos'),
           path.resolve('static', 'images', 'noUrl'),
@@ -100,9 +106,6 @@ module.exports = webpackMerge(webpackBase, {
       },
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
-        exclude: [
-          path.resolve('node_modules'),
-        ],
         include: [
           path.resolve('static', 'images', 'noUrl'),
         ],
@@ -178,9 +181,8 @@ module.exports = webpackMerge(webpackBase, {
 
   plugins: [
     new HtmlWebpackPlugin({
-      inject: true,
+      inject: false,
       template: path.resolve('./static', 'view', 'index.pug'),
-      favicon: path.resolve('./static', 'favicon.ico'),
       minify: {
         removeComments: true,
         collapseWhitespace: true,
@@ -212,6 +214,35 @@ module.exports = webpackMerge(webpackBase, {
 
     new webpack.optimize.ModuleConcatenationPlugin(),
 
+    new OfflinePlugin({
+      appShell: './',
+      safeToUseOptionalCaches: true,
+
+      version: '[hash]',
+      updateStrategy: 'changed',
+      autoUpdate: true,
+
+      caches: {
+        main: [
+          'scripts/*.js',
+          'style/*.css',
+        ],
+        additional: [
+          'images/*',
+          'media/*',
+          'favicon.ico',
+        ],
+        optional: []
+      },
+
+      externals: [],
+      // excludes: ['./'],
+
+      ServiceWorker: {
+        events: true,
+      },
+    }),
+
     new BrowserSyncPlugin(browserSyncConfig({
       server: {
         baseDir: 'build',
@@ -228,27 +259,7 @@ module.exports = webpackMerge(webpackBase, {
   ],
 
   optimization: {
-    minimizer: [
-      // Uglify Js
-      new UglifyJsPlugin({
-        uglifyOptions: {
-          ie8: false,
-          safari10: true,
-          ecma: 5,
-          output: {
-            comments: false,
-            beautify: false
-          },
-          compress: {
-            drop_debugger: true,
-            drop_console: true,
-            collapse_vars: true,
-            reduce_vars: true
-          },
-          warnings: false,
-          sourceMap: true
-        }
-      }),
-    ]
-  }
+    minimize: true,
+    minimizer: [new TerserPlugin(terserConfig)],
+  },
 });
