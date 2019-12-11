@@ -1,18 +1,14 @@
 # Static Webpack Starter
 
+![][workflows-badge-image]
 [![build status][travis-image]][travis-url]
-[![David deps][david-image]][david-url]
-[![devDependencies Status][david-dev-image]][david-dev-url]
-
-[travis-image]: https://travis-ci.org/cycjimmy/static-webpack-starter.svg?branch=master
-[travis-url]: https://travis-ci.org/cycjimmy/static-webpack-starter
-[david-image]: https://img.shields.io/david/cycjimmy/static-webpack-starter.svg?style=flat-square
-[david-url]: https://david-dm.org/cycjimmy/static-webpack-starter
-[david-dev-image]: https://david-dm.org/cycjimmy/static-webpack-starter/dev-status.svg?style=flat-square
-[david-dev-url]: https://david-dm.org/cycjimmy/static-webpack-starter?type=dev
+[![libraries dependency status][libraries-status-image]][libraries-status-url]
+[![Release date][release-date-image]][release-url]
+[![semantic-release][semantic-image]][semantic-url]
 
 ## Based on 
 * [Pwa Webpack Starter](https://github.com/cycjimmy/pwa-webpack-starter)
+* [H5 Webpack Starter](https://github.com/cycjimmy/pwa-webpack-starter)
 
 ## Installation
 ```shell
@@ -33,3 +29,14 @@ $ git pull --rebase upstream master:master
 $ git checkout -b [newBranch] master
 ```
 
+<!-- Links: -->
+[workflows-badge-image]: https://github.com/cycjimmy/static-webpack-starter/workflows/Test%20CI/badge.svg
+[travis-image]: https://img.shields.io/travis/cycjimmy/static-webpack-starter
+[travis-url]: https://travis-ci.org/cycjimmy/static-webpack-starter
+[libraries-status-image]: https://img.shields.io/librariesio/release/github/cycjimmy/static-webpack-starter
+[libraries-status-url]: https://libraries.io/github/cycjimmy/static-webpack-starter
+[release-date-image]: https://img.shields.io/github/release-date/cycjimmy/static-webpack-starter
+[release-url]: https://github.com/cycjimmy/static-webpack-starter/releases
+[semantic-image]: https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg
+[semantic-url]: https://github.com/semantic-release/semantic-release
+[github-pages-url]: https://cycjimmy.github.io/static-webpack-starter/
