@@ -17,16 +17,15 @@ $ npm install
 $ yarn install
 ```
 
-## Update Branch on Other Repository
+## Main Tasks
 ```shell
-# add upstream remote
-$ git remote add upstream https://github.com/cycjimmy/static-webpack-starter.git
+# Run in development
+$ npm start
 
-# pull upstream branch
-$ git pull --rebase upstream master:master
-
-# create new branch based on master
-$ git checkout -b [newBranch] master
+# Build for production
+$ npm run build
+# or
+$ npm run build:watch
 ```
 
 <!-- Links: -->
