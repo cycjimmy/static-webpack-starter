@@ -97,8 +97,8 @@ module.exports = {
       cacheGroups: {
         default: false,
         vendors: false,
-        main: {
-          name: 'main',
+        load: {
+          name: 'load',
           chunks: 'initial',
           minSize: Infinity,
           minChunks: Infinity,
@@ -106,7 +106,7 @@ module.exports = {
       }
     },
     runtimeChunk: {
-      name: 'main'
+      name: 'load'
     }
   },
 
