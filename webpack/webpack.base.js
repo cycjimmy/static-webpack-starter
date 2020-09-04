@@ -21,7 +21,6 @@ module.exports = {
   },
 
   output: {
-    // path: 'dist',
     filename: DEVELOPMENT
       ? 'scripts/[name].bundle.[chunkhash:4].js'
       : 'scripts/[name].bundle.[chunkhash:8].min.js',
@@ -120,7 +119,7 @@ module.exports = {
 
     new CleanWebpackPlugin({
       verbose: true,
-      dry: false
+      cleanStaleWebpackAssets: false,
     }),
   ],
 };

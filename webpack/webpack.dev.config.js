@@ -1,7 +1,7 @@
 ﻿const
   path = require('path')
-  , webpackMerge = require('webpack-merge')
-  , webpackBase = require("./webpack.base.js")
+  , {merge} = require('webpack-merge')
+  , webpackBase = require('./webpack.base')
   , browserSyncConfig = require('./browserSync.config')
   , styleLoadersConfig = require('./styleLoaders.config')()
 
@@ -10,7 +10,7 @@
   , HtmlWebpackPlugin = require('html-webpack-plugin')
 ;
 
-module.exports = webpackMerge(webpackBase, {
+module.exports = merge(webpackBase, {
   mode: 'development',
   devtool: 'eval-source-map',
 
@@ -31,13 +31,21 @@ module.exports = webpackMerge(webpackBase, {
           styleLoadersConfig.sassLoader,
         ]
       },
+      {
+        test: /\.css$/,
+        use: [
+          {
+            loader: 'style-loader'
+          },
+          {
+            loader: 'css-loader',
+          },
+        ]
+      },
 
       // Pictures
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
-        exclude: [
-          path.resolve('node_modules'),
-        ],
         include: [
           path.resolve('app'),
           path.resolve('static'),
@@ -52,12 +60,9 @@ module.exports = webpackMerge(webpackBase, {
         ],
       },
 
-      // media
+      // Media
       {
         test: /\.(wav|mp3|mpeg|mp4|webm|ogv|flv|ts)$/i,
-        exclude: [
-          path.resolve('node_modules'),
-        ],
         include: [
           path.resolve('static', 'media'),
         ],
@@ -74,9 +79,6 @@ module.exports = webpackMerge(webpackBase, {
       // Font
       {
         test: /\.(eot|ttf|woff|woff2)$/,
-        exclude: [
-          path.resolve('node_modules'),
-        ],
         use: [
           {
             loader: 'file-loader',

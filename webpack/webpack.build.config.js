@@ -1,8 +1,8 @@
 const
   path = require('path')
-  , webpack = require('webpack')
-  , webpackMerge = require('webpack-merge')
-  , webpackBase = require('./webpack.base.js')
+  , Webpack = require('webpack')
+  , {merge} = require('webpack-merge')
+  , webpackBase = require('./webpack.base')
   , browserSyncConfig = require('./browserSync.config')
   , styleLoadersConfig = require('./styleLoaders.config')()
 
@@ -10,53 +10,18 @@ const
   , BrowserSyncPlugin = require('browser-sync-webpack-plugin')
   , HtmlWebpackPlugin = require('html-webpack-plugin')
   , TerserPlugin = require('terser-webpack-plugin')
-  , ExtractTextPlugin = require('extract-text-webpack-plugin')
-  , OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+  , MiniCssExtractPlugin = require('mini-css-extract-plugin')
+  , CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
   , OfflinePlugin = require('offline-plugin')
 
   // configs
-  , terserConfig = require('@cycjimmy/config-lib/terserWebpackPlugin/2.x/production')
+  , terserConfig = require('@cycjimmy/config-lib/terserWebpackPlugin/2.x/working')
+  , imageWebpackLoaderConfig = require('@cycjimmy/config-lib/imageWebpackLoader/6.x/production')
 ;
 
 terserConfig.terserOptions.ie8 =  true;
 
-const imageWebpackLoaderConfig = {
-  loader: 'image-webpack-loader',
-  options: {
-    mozjpeg: {
-      progressive: true,
-      quality: 70,
-    },
-    gifsicle: {
-      interlaced: false,
-    },
-    optipng: {
-      optimizationLevel: 6,
-    },
-    pngquant: {
-      quality: [.65, .9],
-      speed: 4,
-    },
-    svgo: {
-      plugins: [
-        {
-          removeViewBox: false,
-        },
-        {
-          removeEmptyAttrs: false,
-        },
-        {
-          moveGroupAttrsToElems: false,
-        },
-      ],
-    },
-    // webp: {
-    //   quality: 75
-    // },
-  }
-};
-
-module.exports = webpackMerge(webpackBase, {
+module.exports = merge(webpackBase, {
   mode: 'production',
   bail: true,
 
@@ -69,15 +34,21 @@ module.exports = webpackMerge(webpackBase, {
       // Style
       {
         test: /\.scss$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          publicPath: '../',  // fix images url bug
-          use: [
-            styleLoadersConfig.cssLoader,
-            styleLoadersConfig.postLoader,
-            styleLoadersConfig.sassLoader,
-          ],
-        })
+        use: [
+          styleLoadersConfig.miniCssExtractLoader,
+          styleLoadersConfig.cssLoader,
+          styleLoadersConfig.postLoader,
+          styleLoadersConfig.sassLoader,
+        ],
+      },
+      {
+        test: /\.css$/,
+        use: [
+          styleLoadersConfig.miniCssExtractLoader,
+          {
+            loader: 'css-loader',
+          },
+        ],
       },
 
       // Pictures
@@ -121,12 +92,9 @@ module.exports = webpackMerge(webpackBase, {
         ],
       },
 
-      // media
+      // Media
       {
         test: /\.(wav|mp3|mpeg|mp4|webm|ogv|flv|ts)$/i,
-        exclude: [
-          path.resolve('node_modules'),
-        ],
         include: [
           path.resolve('static', 'media'),
         ],
@@ -144,9 +112,6 @@ module.exports = webpackMerge(webpackBase, {
       // Svg icons
       {
         test: /\.svg$/,
-        exclude: [
-          path.resolve('node_modules'),
-        ],
         include: [
           path.resolve('static', 'images', 'icons')
         ],
@@ -163,9 +128,6 @@ module.exports = webpackMerge(webpackBase, {
       // Font
       {
         test: /\.(eot|ttf|woff|woff2)$/,
-        exclude: [
-          path.resolve('node_modules'),
-        ],
         use: [
           {
             loader: 'url-loader',
@@ -197,22 +159,14 @@ module.exports = webpackMerge(webpackBase, {
       },
     }),
 
-    new webpack.HashedModuleIdsPlugin(),
+    new Webpack.HashedModuleIdsPlugin(),
 
-    new ExtractTextPlugin({
+    new MiniCssExtractPlugin({
       filename: 'style/[name].[chunkhash:8].min.css',
       ignoreOrder: false,
-      allChunks: false,
     }),
 
-    new OptimizeCssAssetsPlugin({
-      assetNameRegExp: /\.min\.css$/g,
-      cssProcessor: require('cssnano'),
-      cssProcessorOptions: {discardComments: {removeAll: true}},
-      canPrint: true
-    }),
-
-    new webpack.optimize.ModuleConcatenationPlugin(),
+    new Webpack.optimize.ModuleConcatenationPlugin(),
 
     new OfflinePlugin({
       appShell: './',
@@ -246,7 +200,6 @@ module.exports = webpackMerge(webpackBase, {
     new BrowserSyncPlugin(browserSyncConfig({
       server: {
         baseDir: 'build',
-        // https: true,
       },
       port: 4000,
       ui: {
@@ -260,6 +213,9 @@ module.exports = webpackMerge(webpackBase, {
 
   optimization: {
     minimize: true,
-    minimizer: [new TerserPlugin(terserConfig)],
+    minimizer: [
+      new TerserPlugin(terserConfig),
+      new CssMinimizerPlugin(),
+    ],
   },
 });
