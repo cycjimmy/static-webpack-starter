@@ -1,0 +1,31 @@
+doctype html
+html(lang='en')
+  head
+    include includes/meta.pug
+    title Static Webpack Starter
+
+    //- icon
+    link(rel="shortcut icon", href=require("../favicon.ico").default)
+
+    include includes/compatible.pug
+
+    //- webpack style
+    each _style in htmlWebpackPlugin.files.css
+      link(href=_style, rel="stylesheet")
+
+  body
+    .main-screen
+      img.logo-pic(src=require("../images/myLogo.svg").default, alt="logo")
+      h1.main-title Static Webpack Starter
+
+    //- styles and scripts
+    span(style="display:none;")
+      //- webpack loading js
+      each _js,index in htmlWebpackPlugin.files.js
+        if index === 0
+          script(src=_js)
+
+      //- webpack main script
+      each _js,index in htmlWebpackPlugin.files.js
+        if index !== 0
+          script(src=_js)
