@@ -1,7 +1,7 @@
 {
   "name": "static-webpack-starter",
   "version": "1.1.1",
-  "description": "Static webpack starter for webpack, gulp, es6/7, sass, pug...",
+  "description": "Static webpack starter for webpack, es6/7, sass, pug...",
   "main": "index.js",
   "scripts": {
     "start": "cross-env NODE_ENV=development webpack --config webpack/webpack.dev.config.js --display-modules --display-reasons --display-error-details --watch --color",
