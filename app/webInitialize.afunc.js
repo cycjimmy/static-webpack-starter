@@ -4,11 +4,7 @@
 
 // component
 
-export default () => {
-
-  return Promise.all([
-    // tasks
-  ])
-    .catch(err => console.error('Failed to init', err));
-};
-
+export default () => Promise.all([
+  // tasks
+])
+  .catch((err) => console.error('Failed to init', err));

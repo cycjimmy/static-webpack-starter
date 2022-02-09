@@ -1,21 +1,17 @@
-const
-  path = require('path')
+/* eslint import/no-extraneous-dependencies: ["error", {"devDependencies": true}] */
+const path = require('path');
+const DefinePlugin = require('webpack/lib/DefinePlugin');
+const ESLintPlugin = require('eslint-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
-  // Webpack Plugin
-  , DefinePlugin = require('webpack/lib/DefinePlugin')
-  , {CleanWebpackPlugin} = require('clean-webpack-plugin')
-;
-
-const
-  DEVELOPMENT = process.env.NODE_ENV === 'development'    // 开发模式
-  , PRODUCTION = process.env.NODE_ENV === 'production'    // 生产模式
-  , PRODUCTION_TEST_SERVER = process.env.NODE_ENV === 'production_test_server'    // 用测试服务器预览生产模式
-;
+const DEVELOPMENT = process.env.NODE_ENV === 'development'; // Development mode
+const PRODUCTION = process.env.NODE_ENV === 'production'; // Production mode
+const PRODUCTION_TEST_SERVER = process.env.NODE_ENV === 'production_test_server'; // Preview production mode with test server
 
 module.exports = {
   entry: {
-    'load': path.resolve('app', 'load.js'),
-    'main': [
+    load: path.resolve('app', 'load.js'),
+    main: [
       path.resolve('app', 'main.js'),
     ],
   },
@@ -40,7 +36,7 @@ module.exports = {
       path.resolve('node_modules'),
       path.resolve('static'),
     ],
-    'extensions': ['.js']
+    extensions: ['.js'],
   },
 
   module: {
@@ -64,19 +60,12 @@ module.exports = {
       // Pug template
       {
         test: /\.pug$/,
-        include: [
-          path.resolve('app'),
-          path.resolve('static'),
-        ],
         loader: 'pug-loader',
       },
 
       // ico
       {
         test: /\.ico$/i,
-        include: [
-          path.resolve('static'),
-        ],
         use: [
           {
             loader: 'file-loader',
@@ -86,27 +75,27 @@ module.exports = {
           },
         ],
       },
-    ]
+    ],
   },
 
   optimization: {
+    moduleIds: 'deterministic',
     splitChunks: {
       chunks: 'initial',
-      name: true,
       cacheGroups: {
         default: false,
-        vendors: false,
-        load: {
-          name: 'load',
+        defaultVendors: false,
+        runtime: {
+          name: 'runtime',
           chunks: 'initial',
           minSize: Infinity,
           minChunks: Infinity,
         },
-      }
+      },
     },
     runtimeChunk: {
-      name: 'load'
-    }
+      name: 'runtime',
+    },
   },
 
   plugins: [
@@ -115,6 +104,10 @@ module.exports = {
       PRODUCTION: JSON.stringify(PRODUCTION),
       PRODUCTION_TEST_SERVER: JSON.stringify(PRODUCTION_TEST_SERVER),
       TEST_SERVER_ADDRESS: '',
+    }),
+
+    new ESLintPlugin({
+      fix: true,
     }),
 
     new CleanWebpackPlugin({
