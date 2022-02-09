@@ -1,4 +1,4 @@
-﻿/* eslint import/no-extraneous-dependencies: ["error", {"devDependencies": true}] */
+/* eslint import/no-extraneous-dependencies: ["error", {"devDependencies": true}] */
 const path = require('path');
 const { merge } = require('webpack-merge');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');

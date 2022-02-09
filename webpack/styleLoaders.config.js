@@ -2,11 +2,6 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-const PRODUCTION = process.env.NODE_ENV === 'production';
-const cssIdentifier = PRODUCTION
-  ? '[hash:base64:10]'
-  : '[name]__[local]';
-
 module.exports = (options) => ({
   miniCssExtractLoader: {
     loader: MiniCssExtractPlugin.loader,
