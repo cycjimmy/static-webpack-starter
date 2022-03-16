@@ -1,7 +1,6 @@
 # Static Webpack Starter
 
 ![][workflows-badge-image]
-[![build status][travis-image]][travis-url]
 [![libraries dependency status][libraries-status-image]][libraries-status-url]
 [![Release date][release-date-image]][release-url]
 [![webpack][webpack-image]][webpack-url]
@@ -33,9 +32,6 @@ $ npm run build:watch
 
 <!-- Links: -->
 [workflows-badge-image]: https://github.com/cycjimmy/static-webpack-starter/workflows/Test%20CI/badge.svg
-
-[travis-image]: https://img.shields.io/travis/cycjimmy/static-webpack-starter
-[travis-url]: https://travis-ci.org/cycjimmy/static-webpack-starter
 
 [libraries-status-image]: https://img.shields.io/librariesio/release/github/cycjimmy/static-webpack-starter
 [libraries-status-url]: https://libraries.io/github/cycjimmy/static-webpack-starter
