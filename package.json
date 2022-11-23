@@ -1,6 +1,6 @@
 {
   "name": "static-webpack-starter",
-  "version": "2.1.3",
+  "version": "3.0.0",
   "description": "Static webpack starter for webpack, es6/7, sass, pug...",
   "main": "index.js",
   "scripts": {
@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/cycjimmy/static-webpack-starter#readme",
   "engines": {
-    "node": ">=16"
+    "node": "18"
   },
   "dependencies": {
     "@cycjimmy/awesome-js-funcs": "^4.0.9",
