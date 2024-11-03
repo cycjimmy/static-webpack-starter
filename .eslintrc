@@ -24,10 +24,29 @@
     "no-underscore-dangle": "off",
     "no-console": "off",
     "global-require": 0,
+    "linebreak-style": ["error", "unix"],
     "prefer-promise-reject-errors": [
       "error",
       {
         "allowEmptyReject": true
+      }
+    ],
+    "import/no-unresolved": [
+      2,
+      {
+        "ignore": [
+          "^@/",
+          "^@static"
+        ]
+      }
+    ],
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "": "never",
+        "js": "never",
+        "mjs": "never"
       }
     ]
   }

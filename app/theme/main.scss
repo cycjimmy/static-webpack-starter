@@ -1,20 +1,21 @@
-@import 'variables';
-@import 'utilities';
+@use 'sass:color';
+@use 'variables';
+@use 'utilities';
 /*---------------------------
  * reset style
  *---------------------------*/
-@import "~@cycjimmy/sass-lib/reset/special";
+@use '~@cycjimmy/sass-lib/reset/special';
 
 html {
-  font-size: $fontM;
+  font-size: variables.$font-m;
   line-height: 1.4;
 }
 
 body {
-  font-size: $fontM;
-  font-family: -apple-system-font, "Helvetica Neue", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
-  color: $fontColor;
-  background-color: $bgc;
+  font-size: variables.$font-m;
+  font-family: -apple-system-font, 'Helvetica Neue', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  color: variables.$font-color;
+  background-color: variables.$bgc;
 }
 
 /*---------------------------
@@ -24,19 +25,19 @@ body {
   width: 90%;
   min-width: 300px;
   max-width: 960px;
-  margin: $space auto;
-  padding: $space;
+  margin: variables.$space auto;
+  padding: variables.$space;
   display: flex;
   flex-direction: column;
   align-items: center;
 
-  background-color: lighten($bgc, 4%);
+  background-color: color.adjust(variables.$bgc, $lightness: 4%);
 
   // media queries
-  @include media-query(handheld) {
+  @include utilities.media-query(handheld) {
     width: 95%;
-    margin: $space / 2 auto;
-    padding: $space / 2;
+    margin: variables.$space * 0.5 auto;
+    padding: variables.$space * 0.5;
   }
 }
 
@@ -47,11 +48,11 @@ body {
   width: 80px;
   height: 80px;
 
-  @include media-query(handheld) {
+  @include utilities.media-query(handheld) {
     width: 70px;
     height: 70px;
   }
-  @include media-query(wideScreen) {
+  @include utilities.media-query(wideScreen) {
     width: 100px;
     height: 100px;
   }
@@ -60,13 +61,13 @@ body {
 .main-title {
   font-size: 18px;
   font-weight: 700;
-  margin-top: $space;
+  margin-top: variables.$space;
 
-  @include media-query(handheld) {
+  @include utilities.media-query(handheld) {
     font-size: 16px;
-    margin-top: $space / 2;
+    margin-top: variables.$space * 0.5;
   }
-  @include media-query(wideScreen) {
+  @include utilities.media-query(wideScreen) {
     font-size: 20px;
   }
 }

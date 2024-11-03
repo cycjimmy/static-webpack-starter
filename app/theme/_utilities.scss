@@ -1,11 +1,12 @@
-@import "variables";
-@import "~@cycjimmy/sass-lib";
+@use 'sass:meta';
+@use '~@cycjimmy/sass-lib' as *;
+@use 'variables';
 
-@function calcVW($designDrawingLength:0) {
-  @return call(
-      get_function("designPx2VW"),
-      $designDrawingLength,
-      $designDrawingWidth
+@function calc-vw($designDrawingLength: 0) {
+  @return meta.call(
+    get_function('design-px2vw'),
+    $designDrawingLength,
+      variables.$design-drawing-width
   );
 }
 
@@ -15,15 +16,15 @@
  */
 @mixin media-query($media) {
   @if $media == handheld {
-    @media only screen and (max-width: $break-small) {
+    @media only screen and (max-width: variables.$break-small) {
       @content;
     }
   } @else if $media == mediumScreen {
-    @media only screen and (min-width: $break-small) and (max-width: $break-large) {
+    @media only screen and (min-width: variables.$break-small) and (max-width: variables.$break-large) {
       @content;
     }
   } @else if $media == wideScreen {
-    @media only screen and (min-width: $break-large) {
+    @media only screen and (min-width: variables.$break-large) {
       @content;
     }
   }
