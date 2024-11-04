@@ -1,6 +1,6 @@
 {
   "name": "static-webpack-starter",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "Static webpack starter for webpack, es6/7, sass, pug...",
   "main": "index.js",
   "scripts": {
