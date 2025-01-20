@@ -98,7 +98,7 @@ devDependencies:
     specifier: ^2.4.0
     version: 2.4.0(pug@2.0.4)
   sass:
-    specifier: ^1.79.4
+    specifier: ^1.83.4
     version: 1.83.4
   sass-loader:
     specifier: ^16.0.2
