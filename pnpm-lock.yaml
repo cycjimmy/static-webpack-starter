@@ -83,7 +83,7 @@ devDependencies:
     specifier: ^2.9.1
     version: 2.9.2(webpack@5.97.1)
   postcss:
-    specifier: ^8.4.47
+    specifier: ^8.5.1
     version: 8.5.1
   postcss-loader:
     specifier: ^8.1.1
