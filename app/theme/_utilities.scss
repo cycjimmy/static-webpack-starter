@@ -6,7 +6,7 @@
   @return meta.call(
     get_function('design-px2vw'),
     $designDrawingLength,
-      variables.$design-drawing-width
+    variables.$design-drawing-width
   );
 }
 
